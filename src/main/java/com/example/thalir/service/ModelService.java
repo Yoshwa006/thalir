@@ -1,13 +1,16 @@
 package com.example.thalir.service;
 
 
+import com.example.thalir.dto.MapperDTO;
+import com.example.thalir.dto.ModelRequestDTO;
+import com.example.thalir.dto.ModelResponseDTO;
 import com.example.thalir.model.Model;
 import com.example.thalir.repo.ModelRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ModelService {
@@ -26,19 +29,44 @@ public class ModelService {
     }
 
     //save a model
-    public Model saveModel(Model model){
-        System.out.println(model);
+    public ModelResponseDTO saveModel(ModelRequestDTO dto){
+        Model model = MapperDTO.toModel(dto);
         repo.save(model);
-        return model;
+        return MapperDTO.toResponse(model);
     }
 
-    //get by UUID
-    public Model getById(Long id){
-        return repo.getReferenceById(id);
+    public ModelResponseDTO getById(Long id) {
+        Model model = repo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Model not found with id: " + id));
+        return MapperDTO.toResponse(model);
     }
 
     //delete model
     public void deleteModel(Long id){
         repo.deleteById(id);
     }
+
+    //edit a model
+    public ModelResponseDTO updateModel(Long id, ModelRequestDTO dto) {
+
+
+        Model existingModel = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Model not found with id: " + id));
+
+
+        existingModel.setName(dto.getName());
+        existingModel.setDescription(dto.getDescription());
+        existingModel.setPrice(dto.getPrice());
+        existingModel.setCategory(dto.getCategory());
+        existingModel.setFileUrl(dto.getFileUrl());
+        existingModel.setThumbnailUrl(dto.getThumbnailUrl());
+        existingModel.setPublished(dto.isPublished());
+        existingModel.setFree(dto.isFree());
+
+
+        Model updatedModel = repo.save(existingModel);
+
+       return MapperDTO.toResponse(updatedModel);
+    }
+
 }

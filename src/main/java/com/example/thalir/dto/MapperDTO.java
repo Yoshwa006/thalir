@@ -6,7 +6,11 @@ public class MapperDTO {
 
 
     public static Model toModel(ModelRequestDTO dto) {
-        Model model = new Model();
+
+
+        Model model = new Model();    // to real datatype
+
+
         model.setName(dto.getName());
         model.setDescription(dto.getDescription());
         model.setPrice(dto.getPrice());
@@ -19,7 +23,11 @@ public class MapperDTO {
     }
 
     public static ModelResponseDTO toResponse(Model model) {
-        ModelResponseDTO responseDTO = new ModelResponseDTO();
+
+
+        ModelResponseDTO responseDTO = new ModelResponseDTO();    //all string
+
+
         responseDTO.setName(model.getName());
         responseDTO.setDescription(model.getDescription());
         responseDTO.setPrice(model.getPrice());
