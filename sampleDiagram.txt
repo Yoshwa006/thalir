@@ -1,0 +1,43 @@
+
+
+com.example.thalir/
+├── config/
+│   └── SecurityConfig.java
+│   └── JwtAuthenticationFilter.java ✅
+│   └── JwtService.java ✅
+│   └── ApplicationConfig.java ✅
+│
+├── controller/
+│   └── Controller.java
+│   └── AuthController.java ✅
+│
+├── dto/
+│   └── MapperDTO.java
+│   └── ModelRequestDTO.java
+│   └── ModelResponseDTO.java
+│   └── RegisterRequest.java ✅
+│   └── LoginRequest.java ✅
+│   └── AuthResponse.java ✅
+│
+├── exception/
+│   └── GlobalHandlerException.java
+│
+├── model/
+│   └── Model.java
+│   └── Order.java
+│   └── PurchasedModel.java
+│   └── User.java ✅ (already exists, we will enhance it with roles etc.)
+│   └── Role.java ✅ (for ROLE_USER / ROLE_ADMIN)
+│
+├── repo/
+│   └── ModelRepo.java
+│   └── OrderRepo.java
+│   └── PurchasedModelRepo.java
+│   └── UserRepo.java ✅
+│
+├── service/
+│   └── ModelService.java
+│   └── AuthService.java ✅
+│   └── AuthServiceImpl.java ✅
+│
+└── ThalirApplication.java
