@@ -1,6 +1,7 @@
 package com.example.thalir.dto;
 
 import com.example.thalir.model.Model;
+import com.example.thalir.model.User;
 
 public class MapperDTO {
 
@@ -38,4 +39,14 @@ public class MapperDTO {
         responseDTO.setFree(model.isFree());
         return responseDTO;
     }
+
+    public static User toUser(RegisterRequest request){
+        User user  = new User();
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setUsername(request.getUsername());
+        user.setAdmin(Boolean.parseBoolean(request.getIsAdmin()));
+        return user;
+    }
+
 }

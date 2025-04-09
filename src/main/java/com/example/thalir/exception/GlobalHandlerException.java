@@ -40,4 +40,13 @@ public class GlobalHandlerException extends RuntimeException{
         errors.put("message" , ex.getMessage());
         return new ResponseEntity<>(errors , HttpStatus.CONFLICT);
     }
+
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<Map<String,String>> handleEmailAlreadyExists(EmailAlreadyExistsException e){
+        Map<String , String> errors = new HashMap<>();
+        errors.put("messsage" , e.getMessage());
+
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
 }

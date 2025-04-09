@@ -13,9 +13,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
+    private String password;
+    @Column(unique = true)
+    private String email;
+    private boolean isAdmin = false;
+    @Column(unique = true)
     private String username;
+
+
 
     public Long getId() {
         return id;
@@ -57,8 +62,5 @@ public class User {
         isAdmin = admin;
     }
 
-    private String password;
-    private String email;
 
-    private boolean isAdmin = false;
 }
