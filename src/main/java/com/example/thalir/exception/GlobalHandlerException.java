@@ -1,4 +1,4 @@
-package com.example.thalir.Exception;
+package com.example.thalir.exception;
 
 
 import org.slf4j.Logger;

@@ -1,7 +1,7 @@
 package com.example.thalir.service;
 
 
-import com.example.thalir.Exception.FileUrlAlreadyExistsException;
+import com.example.thalir.exception.FileUrlAlreadyExistsException;
 import com.example.thalir.dto.MapperDTO;
 import com.example.thalir.dto.ModelRequestDTO;
 import com.example.thalir.dto.ModelResponseDTO;

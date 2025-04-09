@@ -1,4 +1,4 @@
-package com.example.thalir.Exception;
+package com.example.thalir.exception;
 
 public class FileUrlAlreadyExistsException extends RuntimeException{
 
