@@ -1,6 +1,7 @@
 package com.example.thalir.service;
 
 
+import com.example.thalir.Exception.FileUrlAlreadyExistsException;
 import com.example.thalir.dto.MapperDTO;
 import com.example.thalir.dto.ModelRequestDTO;
 import com.example.thalir.dto.ModelResponseDTO;
@@ -30,6 +31,8 @@ public class ModelService {
 
     //save a model
     public ModelResponseDTO saveModel(ModelRequestDTO dto){
+        if(repo.existsByFileUrl(dto.getFileUrl())){
+            throw new FileUrlAlreadyExistsException("This file already exists  -->  " + dto.getFileUrl());}
         Model model = MapperDTO.toModel(dto);
         repo.save(model);
         return MapperDTO.toResponse(model);

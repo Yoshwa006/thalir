@@ -33,4 +33,11 @@ public class GlobalHandlerException extends RuntimeException{
         response.put("errors", errors);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(FileUrlAlreadyExistsException.class)
+    public ResponseEntity<Map<String,String>> handleFileExists(FileUrlAlreadyExistsException ex){
+        Map<String,String> errors = new HashMap<>();
+        errors.put("message" , ex.getMessage());
+        return new ResponseEntity<>(errors , HttpStatus.CONFLICT);
+    }
 }

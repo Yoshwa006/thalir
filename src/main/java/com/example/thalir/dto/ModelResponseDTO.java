@@ -77,4 +77,18 @@ public class ModelResponseDTO {
     private String thumbnailUrl;
     private boolean isPublished;
     private boolean isFree;
+    @Override
+    public String toString() {
+        return "ModelRequestDTO{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", category='" + category + '\'' +
+                ", fileUrl='" + fileUrl + '\'' +
+                ", thumbnailUrl='" + thumbnailUrl + '\'' +
+                ", published=" + isPublished +
+                ", free=" + isFree +
+                '}';
+    }
+
 }

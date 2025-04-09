@@ -38,10 +38,12 @@ public class Controller {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveModel(@RequestBody ModelRequestDTO dto) {
+    public ResponseEntity<ModelResponseDTO> saveModel(@RequestBody ModelRequestDTO dto) {
+        System.out.println("DEBUG: DTO received = " + dto);
         ModelResponseDTO saved = service.saveModel(dto);
         return ResponseEntity.status(201).body(saved);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateModel(@PathVariable Long id, @RequestBody ModelRequestDTO dto) {

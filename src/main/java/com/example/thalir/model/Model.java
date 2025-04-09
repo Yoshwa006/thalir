@@ -17,7 +17,9 @@ public class Model {
     private String description;
     private Double price;
     private String category;
+    @Column(unique = true)
     private String fileUrl;
+    @Column(unique = true)
     private String thumbnailUrl;
     private boolean published;
     private boolean free;

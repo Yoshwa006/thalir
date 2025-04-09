@@ -13,6 +13,9 @@ public class ModelRequestDTO {
     private Double price;
     private String category;
     private String fileUrl;
+    private String thumbnailUrl;
+    private boolean isPublished;
+    private boolean isFree;
 
     public String getName() {
         return name;
@@ -78,7 +81,5 @@ public class ModelRequestDTO {
         isFree = free;
     }
 
-    private String thumbnailUrl;
-    private boolean isPublished;
-    private boolean isFree;
+
 }
