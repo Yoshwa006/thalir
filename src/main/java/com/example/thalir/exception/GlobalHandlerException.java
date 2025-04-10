@@ -49,4 +49,11 @@ public class GlobalHandlerException extends RuntimeException{
 
         return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidCredentials(InvalidCredentialsException e){
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message : " , e.getMessage());
+        return new ResponseEntity<>(errors,HttpStatus.CONFLICT);
+    }
 }

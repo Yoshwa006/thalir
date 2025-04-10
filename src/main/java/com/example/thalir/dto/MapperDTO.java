@@ -45,7 +45,6 @@ public class MapperDTO {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setUsername(request.getUsername());
-        user.setAdmin(Boolean.parseBoolean(request.getIsAdmin()));
         return user;
     }
 

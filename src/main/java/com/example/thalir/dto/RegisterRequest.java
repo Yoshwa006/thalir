@@ -8,11 +8,9 @@ import lombok.Data;
 @Data
 public class RegisterRequest {
 
-    private String id;
     private String username;
     private String email;
     private String password;
-    private String isAdmin;
 
 
 
@@ -24,13 +22,7 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -48,13 +40,7 @@ public class RegisterRequest {
         this.email = email;
     }
 
-    public String getIsAdmin() {
-        return isAdmin;
-    }
 
-    public void setIsAdmin(String isAdmin) {
-        this.isAdmin = isAdmin;
-    }
 
 
     
