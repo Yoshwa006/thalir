@@ -3,6 +3,7 @@ package com.example.thalir.controller;
 
 import com.example.thalir.dto.LoginRequest;
 import com.example.thalir.dto.RegisterRequest;
+import com.example.thalir.dto.RegisterResponce;
 import com.example.thalir.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        authService.login(loginRequest);
-        return ResponseEntity.ok("Login successful");
+    public ResponseEntity<RegisterResponce> login(@RequestBody LoginRequest loginRequest) {
+        RegisterResponce responce = authService.login(loginRequest);
+        return ResponseEntity.ok().body(responce);
     }
 }

@@ -13,12 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/models")
-public class Controller {
+public class ModelController {
 
     private final ModelService service;
 
     @Autowired
-    public Controller(ModelService service) {
+    public ModelController(ModelService service) {
         this.service = service;
     }
 
