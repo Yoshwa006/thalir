@@ -26,8 +26,8 @@ com.example.thalir/
 │   └── Model.java
 │   └── Order.java
 │   └── PurchasedModel.java
-│   └── User.java  (already exists, we will enhance it with roles etc.)
-│   └── Role.java (for ROLE_USER / ROLE_ADMIN)
+│   └── User.java
+│   └── Role.java
 │
 ├── repo/
 │   └── ModelRepo.java
