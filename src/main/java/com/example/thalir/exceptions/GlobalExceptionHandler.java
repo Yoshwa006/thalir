@@ -1,4 +1,4 @@
-package com.example.thalir.exception;
+package com.example.thalir.exceptions;
 
 
 import org.slf4j.Logger;
@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @ControllerAdvice
-public class GlobalHandlerException extends RuntimeException{
-    private static final Logger log = LoggerFactory.getLogger(GlobalHandlerException.class);
+public class GlobalExceptionHandler extends RuntimeException{
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {

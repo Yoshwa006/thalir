@@ -1,9 +1,9 @@
 package com.example.thalir.controller;
 
-import com.example.thalir.dto.ModelRequestDTO;
-import com.example.thalir.dto.ModelResponseDTO;
-import com.example.thalir.model.Model;
-import com.example.thalir.service.ModelService;
+import com.example.thalir.dto.request.ModelRequestDTO;
+import com.example.thalir.dto.responce.ModelResponseDTO;
+import com.example.thalir.entity.Model;
+import com.example.thalir.service.ModelManagementService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +15,10 @@ import java.util.List;
 @RequestMapping("/api/models")
 public class ModelController {
 
-    private final ModelService service;
+    private final ModelManagementService service;
 
     @Autowired
-    public ModelController(ModelService service) {
+    public ModelController(ModelManagementService service) {
         this.service = service;
     }
 
@@ -26,7 +26,6 @@ public class ModelController {
     public ResponseEntity<List<Model>> getAllData() {
         return ResponseEntity.ok(service.getAllDetails());
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
@@ -36,14 +35,12 @@ public class ModelController {
             return ResponseEntity.status(404).body("Model not found with ID: " + id);
         }
     }
-
     @PostMapping
     public ResponseEntity<ModelResponseDTO> saveModel(@RequestBody ModelRequestDTO dto) {
         System.out.println("DEBUG: DTO received = " + dto);
         ModelResponseDTO saved = service.saveModel(dto);
         return ResponseEntity.status(201).body(saved);
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateModel(@PathVariable Long id, @RequestBody ModelRequestDTO dto) {

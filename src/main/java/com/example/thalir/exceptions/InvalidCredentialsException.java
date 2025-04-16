@@ -1,6 +1,4 @@
-package com.example.thalir.exception;
-
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+package com.example.thalir.exceptions;
 
 
 public class InvalidCredentialsException extends RuntimeException{

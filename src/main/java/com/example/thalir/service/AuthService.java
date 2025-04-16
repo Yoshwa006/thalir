@@ -2,31 +2,31 @@ package com.example.thalir.service;
 
 
 
-import com.example.thalir.dto.LoginRequest;
-import com.example.thalir.dto.MapperDTO;
-import com.example.thalir.dto.RegisterRequest;
-import com.example.thalir.dto.RegisterResponce;
-import com.example.thalir.exception.EmailAlreadyExistsException;
-import com.example.thalir.model.User;
-import com.example.thalir.repo.UserRepo;
+import com.example.thalir.dto.request.LoginRequest;
+import com.example.thalir.dto.DTOMapper;
+import com.example.thalir.dto.request.RegisterRequest;
+import com.example.thalir.dto.responce.RegisterResponce;
+import com.example.thalir.exceptions.EmailAlreadyExistsException;
+import com.example.thalir.entity.User;
+import com.example.thalir.repository.UserRepository;
 import com.example.thalir.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import com.example.thalir.exception.InvalidCredentialsException;
+import com.example.thalir.exceptions.InvalidCredentialsException;
 
 @Service
 public class AuthService {
 
-    private final UserRepo repo;
+    private final UserRepository repo;
     private final BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private JwtUtil jwtUtil;
 
 
     @Autowired
-    public AuthService(UserRepo repo, BCryptPasswordEncoder passwordEncoder){
+    public AuthService(UserRepository repo, BCryptPasswordEncoder passwordEncoder){
         this.repo = repo;
         this.passwordEncoder = passwordEncoder;
     }
@@ -35,7 +35,7 @@ public class AuthService {
         if(repo.existsByEmail(request.getEmail())){
             throw new EmailAlreadyExistsException("Email already exists: " + request.getEmail());
         }
-        User user = MapperDTO.toUser(request);
+        User user = DTOMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repo.save(user);
 
@@ -44,17 +44,14 @@ public class AuthService {
     public RegisterResponce login(LoginRequest loginRequest) {
 
 
-        //checking from db part
        User user = repo.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new InvalidCredentialsException("Invalid email or password "));
 
-       //exception part
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        //returning the JWT
         String token = jwtUtil.generateToken(user.getUsername());
-
+        System.out.println(token);
         RegisterResponce responce = new RegisterResponce();
         responce.setToken(token);
         responce.setMessage("Login Successful !");

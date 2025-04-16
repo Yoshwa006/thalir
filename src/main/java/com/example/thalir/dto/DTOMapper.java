@@ -1,9 +1,12 @@
 package com.example.thalir.dto;
 
-import com.example.thalir.model.Model;
-import com.example.thalir.model.User;
+import com.example.thalir.dto.request.ModelRequestDTO;
+import com.example.thalir.dto.request.RegisterRequest;
+import com.example.thalir.dto.responce.ModelResponseDTO;
+import com.example.thalir.entity.Model;
+import com.example.thalir.entity.User;
 
-public class MapperDTO {
+public class DTOMapper {
 
 
     public static Model toModel(ModelRequestDTO dto) {

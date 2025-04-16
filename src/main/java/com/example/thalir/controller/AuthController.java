@@ -1,9 +1,9 @@
 package com.example.thalir.controller;
 
 
-import com.example.thalir.dto.LoginRequest;
-import com.example.thalir.dto.RegisterRequest;
-import com.example.thalir.dto.RegisterResponce;
+import com.example.thalir.dto.request.LoginRequest;
+import com.example.thalir.dto.request.RegisterRequest;
+import com.example.thalir.dto.responce.RegisterResponce;
 import com.example.thalir.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,6 @@
-package com.example.thalir.model;
+package com.example.thalir.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
 @Table(name = "purchased_models")

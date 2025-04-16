@@ -1,4 +1,4 @@
-package com.example.thalir.model;
+package com.example.thalir.entity;
 
 import jakarta.persistence.*;
 

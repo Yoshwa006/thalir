@@ -11,8 +11,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity // ✅ Enables @PreAuthorize
 public class SecurityConfig {
 
     @Bean

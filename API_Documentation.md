@@ -21,9 +21,6 @@ DELETE  /api/models/{id}
 Input:      -
 Output:     Success message / 404 if not found
 
-GET     /api/models/public/check
-Input:      -
-Output:     "Server is Running!" (200 OK)
 
 
 AuthController (/api/auth)

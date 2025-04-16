@@ -1,8 +1,7 @@
-package com.example.thalir.dto;
+package com.example.thalir.dto.request;
 
 
 
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data

@@ -1,10 +1,7 @@
-package com.example.thalir.model;
+package com.example.thalir.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")

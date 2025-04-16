@@ -1,6 +1,4 @@
-package com.example.thalir.dto;
-
-import lombok.Data;
+package com.example.thalir.dto.responce;
 
 
 public class ModelResponseDTO {

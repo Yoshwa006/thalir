@@ -1,4 +1,4 @@
-package com.example.thalir.exception;
+package com.example.thalir.exceptions;
 
 public class EmailAlreadyExistsException extends RuntimeException{
     public EmailAlreadyExistsException(String message){

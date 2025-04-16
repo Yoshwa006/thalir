@@ -1,4 +1,4 @@
-package com.example.thalir.dto;
+package com.example.thalir.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

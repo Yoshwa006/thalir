@@ -1,4 +1,4 @@
-package com.example.thalir.dto;
+package com.example.thalir.dto.responce;
 
 import lombok.Data;
 

@@ -1,12 +1,12 @@
 package com.example.thalir.service;
 
 
-import com.example.thalir.exception.FileUrlAlreadyExistsException;
-import com.example.thalir.dto.MapperDTO;
-import com.example.thalir.dto.ModelRequestDTO;
-import com.example.thalir.dto.ModelResponseDTO;
-import com.example.thalir.model.Model;
-import com.example.thalir.repo.ModelRepo;
+import com.example.thalir.exceptions.FileUrlAlreadyExistsException;
+import com.example.thalir.dto.DTOMapper;
+import com.example.thalir.dto.request.ModelRequestDTO;
+import com.example.thalir.dto.responce.ModelResponseDTO;
+import com.example.thalir.entity.Model;
+import com.example.thalir.repository.ModelRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ModelService {
+public class ModelManagementService {
 
 
-    private final ModelRepo repo;
+    private final ModelRepository repo;
 
     @Autowired
-    ModelService(ModelRepo repo){
+    ModelManagementService(ModelRepository repo){
         this.repo = repo;
     }
 
@@ -33,15 +33,15 @@ public class ModelService {
     public ModelResponseDTO saveModel(ModelRequestDTO dto){
         if(repo.existsByFileUrl(dto.getFileUrl())){
             throw new FileUrlAlreadyExistsException("This file already exists  -->  " + dto.getFileUrl());}
-        Model model = MapperDTO.toModel(dto);
+        Model model = DTOMapper.toModel(dto);
         repo.save(model);
-        return MapperDTO.toResponse(model);
+        return DTOMapper.toResponse(model);
     }
 
     public ModelResponseDTO getById(Long id) {
         Model model = repo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Model not found with id: " + id));
-        return MapperDTO.toResponse(model);
+        return DTOMapper.toResponse(model);
     }
 
     //delete model
@@ -69,7 +69,7 @@ public class ModelService {
 
         Model updatedModel = repo.save(existingModel);
 
-       return MapperDTO.toResponse(updatedModel);
+       return DTOMapper.toResponse(updatedModel);
     }
 
 }
