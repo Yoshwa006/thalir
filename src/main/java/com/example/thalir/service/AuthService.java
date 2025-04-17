@@ -9,7 +9,6 @@ import com.example.thalir.dto.responce.RegisterResponce;
 import com.example.thalir.exceptions.EmailAlreadyExistsException;
 import com.example.thalir.entity.User;
 import com.example.thalir.repository.UserRepository;
-import com.example.thalir.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class AuthService {
     private final UserRepository repo;
     private final BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtService jwtUtil;
 
 
     @Autowired
@@ -50,7 +49,7 @@ public class AuthService {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(user.getUsername());
+        String token = jwtUtil.generateToken(user.getEmail());
         System.out.println(token);
         RegisterResponce responce = new RegisterResponce();
         responce.setToken(token);
