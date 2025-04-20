@@ -23,13 +23,11 @@ public class ModelController {
         this.service = service;
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     public ResponseEntity<List<Model>> getAllData() {
         return ResponseEntity.ok(service.getAllDetails());
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
@@ -40,7 +38,6 @@ public class ModelController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ModelResponseDTO> saveModel(@RequestBody ModelRequestDTO dto) {
         System.out.println("DEBUG: DTO received = " + dto);
@@ -48,7 +45,6 @@ public class ModelController {
         return ResponseEntity.status(201).body(saved);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<?> updateModel(@PathVariable Long id, @RequestBody ModelRequestDTO dto) {
         try {
@@ -59,7 +55,6 @@ public class ModelController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteModel(@PathVariable Long id) {
         try {
@@ -70,7 +65,7 @@ public class ModelController {
         }
     }
 
-    @GetMapping("/public/check")
+    @GetMapping("/public")
     public String checkPublicEndPoint() {
         return "Server is Running!";
     }

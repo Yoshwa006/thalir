@@ -6,10 +6,11 @@ import com.example.thalir.dto.request.LoginRequest;
 import com.example.thalir.dto.DTOMapper;
 import com.example.thalir.dto.request.RegisterRequest;
 import com.example.thalir.dto.responce.RegisterResponce;
+import com.example.thalir.entity.Users;
 import com.example.thalir.exceptions.EmailAlreadyExistsException;
-import com.example.thalir.entity.User;
 import com.example.thalir.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,27 +35,29 @@ public class AuthService {
         if(repo.existsByEmail(request.getEmail())){
             throw new EmailAlreadyExistsException("Email already exists: " + request.getEmail());
         }
-        User user = DTOMapper.toUser(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        repo.save(user);
+        Users users = DTOMapper.toUser(request);
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
+        repo.save(users);
 
     }
 
-    public RegisterResponce login(LoginRequest loginRequest) {
+    public RegisterResponce login(LoginRequest loginRequest) throws UsernameNotFoundException {
 
 
-       User user = repo.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new InvalidCredentialsException("Invalid email or password "));
+       Users users = repo.findByEmail(loginRequest.getEmail());
+       if(users == null){
+           throw new UsernameNotFoundException("Email dont exist");
+       }
 
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(loginRequest.getPassword(), users.getPassword())) {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(users.getEmail());
         System.out.println(token);
         RegisterResponce responce = new RegisterResponce();
         responce.setToken(token);
-        responce.setMessage("Login Successful !");
-        responce.setEmail(user.getEmail());
+        responce.setEmail(users.getEmail());
         return responce;
     }
 }

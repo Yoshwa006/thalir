@@ -4,7 +4,7 @@ import com.example.thalir.dto.request.ModelRequestDTO;
 import com.example.thalir.dto.request.RegisterRequest;
 import com.example.thalir.dto.responce.ModelResponseDTO;
 import com.example.thalir.entity.Model;
-import com.example.thalir.entity.User;
+import com.example.thalir.entity.Users;
 
 public class DTOMapper {
 
@@ -12,7 +12,7 @@ public class DTOMapper {
     public static Model toModel(ModelRequestDTO dto) {
 
 
-        Model model = new Model();    // to real datatype
+        Model model = new Model();
 
 
         model.setName(dto.getName());
@@ -43,12 +43,11 @@ public class DTOMapper {
         return responseDTO;
     }
 
-    public static User toUser(RegisterRequest request){
-        User user  = new User();
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        user.setUsername(request.getUsername());
-        return user;
+    public static Users toUser(RegisterRequest request){
+        Users users = new Users();
+        users.setEmail(request.getEmail());
+        users.setPassword(request.getPassword());
+        return users;
     }
 
 }
