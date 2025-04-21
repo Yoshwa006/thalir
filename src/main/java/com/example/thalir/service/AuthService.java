@@ -8,6 +8,7 @@ import com.example.thalir.dto.request.RegisterRequest;
 import com.example.thalir.dto.responce.RegisterResponce;
 import com.example.thalir.entity.Users;
 import com.example.thalir.exceptions.EmailAlreadyExistsException;
+import com.example.thalir.exceptions.EmailNotFoundException;
 import com.example.thalir.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
