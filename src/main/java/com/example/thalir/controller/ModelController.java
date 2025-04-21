@@ -40,7 +40,6 @@ public class ModelController {
 
     @PostMapping
     public ResponseEntity<ModelResponseDTO> saveModel(@RequestBody ModelRequestDTO dto) {
-        System.out.println("DEBUG: DTO received = " + dto);
         ModelResponseDTO saved = service.saveModel(dto);
         return ResponseEntity.status(201).body(saved);
     }

@@ -32,7 +32,12 @@ public class ModelManagementService {
 
     public ModelResponseDTO saveModel(ModelRequestDTO dto){
         if(repo.existsByFileUrl(dto.getFileUrl())){
-            throw new FileUrlAlreadyExistsException("This file already exists  -->  " + dto.getFileUrl());}
+            throw new FileUrlAlreadyExistsException("This file already exists  -->  " + dto.getFileUrl());
+        }
+        if(repo.existsByThumbnailUrl(dto.getThumbnailUrl())){
+            throw new FileUrlAlreadyExistsException("This file already exists -->" + dto.getThumbnailUrl());
+        }
+
         Model model = DTOMapper.toModel(dto);
         repo.save(model);
         return DTOMapper.toResponse(model);
@@ -56,7 +61,7 @@ public class ModelManagementService {
 
 
         Model existingModel = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Model not found with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Model not found with id: " + id));
 
 
         existingModel.setName(dto.getName());

@@ -22,7 +22,7 @@ public class AuthService {
     private final UserRepository repo;
     private final BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private JwtService jwtUtil;
+    private JwtService jwtService;
 
 
     @Autowired
@@ -53,7 +53,7 @@ public class AuthService {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(users.getEmail());
+        String token = jwtService.generateToken(users.getEmail());
         System.out.println(token);
         RegisterResponce responce = new RegisterResponce();
         responce.setToken(token);
