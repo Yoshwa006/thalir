@@ -24,19 +24,25 @@ public class ModelManagementService {
         this.repo = repo;
     }
 
-    //get all model
+
     public List<Model> getAllDetails(){
         return repo.findAll();
     }
 
-    //save a model
+
     public ModelResponseDTO saveModel(ModelRequestDTO dto){
         if(repo.existsByFileUrl(dto.getFileUrl())){
-            throw new FileUrlAlreadyExistsException("This file already exists  -->  " + dto.getFileUrl());}
+            throw new FileUrlAlreadyExistsException("This file already exists  -->  " + dto.getFileUrl());
+        }
+        if(repo.existsByThumbnailUrl(dto.getThumbnailUrl())){
+            throw new FileUrlAlreadyExistsException("This file already exists -->" + dto.getThumbnailUrl());
+        }
+
         Model model = DTOMapper.toModel(dto);
         repo.save(model);
         return DTOMapper.toResponse(model);
     }
+
 
     public ModelResponseDTO getById(Long id) {
         Model model = repo.findById(id)
@@ -44,17 +50,18 @@ public class ModelManagementService {
         return DTOMapper.toResponse(model);
     }
 
-    //delete model
+
     public void deleteModel(Long id){
         repo.deleteById(id);
     }
 
-    //edit a model
+
+
     public ModelResponseDTO updateModel(Long id, ModelRequestDTO dto) {
 
 
         Model existingModel = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Model not found with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Model not found with id: " + id));
 
 
         existingModel.setName(dto.getName());

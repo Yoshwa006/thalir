@@ -7,6 +7,7 @@ import com.example.thalir.service.ModelManagementService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class ModelController {
     public ResponseEntity<List<Model>> getAllData() {
         return ResponseEntity.ok(service.getAllDetails());
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
@@ -35,9 +37,9 @@ public class ModelController {
             return ResponseEntity.status(404).body("Model not found with ID: " + id);
         }
     }
+
     @PostMapping
     public ResponseEntity<ModelResponseDTO> saveModel(@RequestBody ModelRequestDTO dto) {
-        System.out.println("DEBUG: DTO received = " + dto);
         ModelResponseDTO saved = service.saveModel(dto);
         return ResponseEntity.status(201).body(saved);
     }
@@ -62,7 +64,7 @@ public class ModelController {
         }
     }
 
-    @GetMapping("/public/check")
+    @GetMapping("/public")
     public String checkPublicEndPoint() {
         return "Server is Running!";
     }

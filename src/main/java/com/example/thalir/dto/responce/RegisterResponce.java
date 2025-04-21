@@ -12,15 +12,11 @@ public class RegisterResponce {
         this.token = token;
     }
 
-    String token;
+    private String token;
 
-    public String getMessage() {
-        return message;
-    }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+
+
 
     public String getEmail() {
         return email;
@@ -29,7 +25,5 @@ public class RegisterResponce {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    String message;
-    String email;
+   private String email;
 }
