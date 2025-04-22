@@ -24,6 +24,7 @@ public class Users implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    final
     Set<Role> roles = new HashSet<>();
 
     // Constructors

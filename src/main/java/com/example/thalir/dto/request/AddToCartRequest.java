@@ -9,10 +9,6 @@ public class AddToCartRequest {
         return modelId;
     }
 
-    public void setModelId(Long modelId) {
-        this.modelId = modelId;
-    }
-
     private Long modelId;
 
 }

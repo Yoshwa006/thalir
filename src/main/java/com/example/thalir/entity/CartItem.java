@@ -2,7 +2,6 @@ package com.example.thalir.entity;
 
 
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 
 @Entity
 @Table(name = "cart_items")

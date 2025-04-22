@@ -27,7 +27,7 @@ public class CartService {
         this.userRepo = userRepo;
     }
 
-    public ResponseEntity<?> addToCart(String email, Long modelId) throws ResourceNotFoundException {
+    public void addToCart(String email, Long modelId) throws ResourceNotFoundException {
 
         Users user = userRepo.findByEmail(email);
         if (user == null) {
@@ -42,8 +42,9 @@ public class CartService {
         Optional<CartItem> alreadyExists = cartRepo.findByUserAndModel(user, model);
         if (alreadyExists.isPresent()) {
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Item is already in your cart!");
+            return;
         }
 
 
@@ -53,7 +54,7 @@ public class CartService {
         cartRepo.save(cartItem);
 
 
-        return ResponseEntity.status(HttpStatus.CREATED)
+        ResponseEntity.status(HttpStatus.CREATED)
                 .body("Item successfully added to cart!");
     }
 

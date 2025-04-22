@@ -1,6 +1,5 @@
 package com.example.thalir.entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

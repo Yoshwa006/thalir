@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.security.SignatureException;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -50,10 +49,14 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
-
+        return Jwts.parserBuilder()
+                .setSigningKey(key) // `key` should be of type SecretKey or byte[]
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
-        public static void main(String[] args) {
+
+    public static void main(String[] args) {
         JwtService service = new JwtService();
         String tok = service.generateToken("ryoshwaa@gmail.com");
         System.out.println("Generated Token: " + tok);

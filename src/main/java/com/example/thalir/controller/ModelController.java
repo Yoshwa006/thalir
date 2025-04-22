@@ -4,14 +4,12 @@ import com.example.thalir.dto.request.AddToCartRequest;
 import com.example.thalir.dto.request.ModelRequestDTO;
 import com.example.thalir.dto.responce.ModelResponseDTO;
 import com.example.thalir.entity.Model;
-import com.example.thalir.exceptions.ResourceNotFoundException;
 import com.example.thalir.service.CartService;
 import com.example.thalir.service.JwtService;
 import com.example.thalir.service.ModelManagementService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -73,12 +71,6 @@ public class ModelController {
             return ResponseEntity.status(404).body("Model not found with ID: " + id);
         }
     }
-
-    @GetMapping("/public")
-    public String checkPublicEndPoint() {
-        return "Server is Running!";
-    }
-
 
     @PostMapping("/add")
     public ResponseEntity<?> addToCart(@RequestHeader("Authorization") String token, @RequestBody AddToCartRequest request) {
