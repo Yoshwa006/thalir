@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends RuntimeException{
+public class GlobalExceptionHandler extends RuntimeException {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -35,25 +35,39 @@ public class GlobalExceptionHandler extends RuntimeException{
     }
 
     @ExceptionHandler(FileUrlAlreadyExistsException.class)
-    public ResponseEntity<Map<String,String>> handleFileExists(FileUrlAlreadyExistsException ex){
-        Map<String,String> errors = new HashMap<>();
-        errors.put("message" , ex.getMessage());
-        return new ResponseEntity<>(errors , HttpStatus.CONFLICT);
+    public ResponseEntity<Map<String, String>> handleFileExists(FileUrlAlreadyExistsException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", ex.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<Map<String,String>> handleEmailAlreadyExists(EmailAlreadyExistsException e){
-        Map<String , String> errors = new HashMap<>();
-        errors.put("messsage" , e.getMessage());
+    public ResponseEntity<Map<String, String>> handleEmailAlreadyExists(EmailAlreadyExistsException e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("messsage", e.getMessage());
 
         return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
-    public ResponseEntity<Map<String, String>> handleInvalidCredentials(InvalidCredentialsException e){
+    public ResponseEntity<Map<String, String>> handleInvalidCredentials(InvalidCredentialsException e) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message : " , e.getMessage());
-        return new ResponseEntity<>(errors,HttpStatus.CONFLICT);
+        errors.put("message : ", e.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EmailNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleEmailNotFoundException(EmailNotFoundException e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", e.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleResourceNotFound(ResourceNotFoundException e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", e.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 }
