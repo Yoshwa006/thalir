@@ -1,8 +1,12 @@
 package com.example.thalir.controller;
 
+import com.example.thalir.dto.request.AddToCartRequest;
 import com.example.thalir.dto.request.ModelRequestDTO;
 import com.example.thalir.dto.responce.ModelResponseDTO;
 import com.example.thalir.entity.Model;
+import com.example.thalir.exceptions.ResourceNotFoundException;
+import com.example.thalir.service.CartService;
+import com.example.thalir.service.JwtService;
 import com.example.thalir.service.ModelManagementService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,16 @@ import java.util.List;
 public class ModelController {
 
     private final ModelManagementService service;
+    @Autowired
+    private final JwtService jwtService;
+    @Autowired
+    private final CartService cartService;
 
     @Autowired
-    public ModelController(ModelManagementService service) {
+    public ModelController(ModelManagementService service, JwtService jwtService, CartService cartService) {
         this.service = service;
+        this.jwtService = jwtService;
+        this.cartService = cartService;
     }
 
     @GetMapping
@@ -68,4 +78,13 @@ public class ModelController {
     public String checkPublicEndPoint() {
         return "Server is Running!";
     }
+
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addToCart(@RequestHeader("Authorization") String token, @RequestBody AddToCartRequest request) {
+        String email = jwtService.extractUsername(token.replace("Bearer ", ""));
+        cartService.addToCart(email, request.getModelId());
+        return ResponseEntity.ok().body("Added");
+    }
+
 }

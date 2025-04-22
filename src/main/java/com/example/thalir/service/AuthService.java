@@ -42,12 +42,12 @@ public class AuthService {
 
     }
 
-    public RegisterResponce login(LoginRequest loginRequest) throws UsernameNotFoundException {
+    public RegisterResponce login(LoginRequest loginRequest) throws EmailNotFoundException {
 
 
        Users users = repo.findByEmail(loginRequest.getEmail());
        if(users == null){
-           throw new UsernameNotFoundException("Email dont exist");
+           throw new EmailNotFoundException("Email don't exist");
        }
 
         if (!passwordEncoder.matches(loginRequest.getPassword(), users.getPassword())) {
