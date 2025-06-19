@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ModelRepository extends JpaRepository<Model, Long> {
     boolean existsByFileUrl(String fileUrl);
     boolean existsByThumbnailUrl(String thumbnailUrl);
+    boolean existsByFileUrlAndIdNot(String fileUrl, Long id);
 }

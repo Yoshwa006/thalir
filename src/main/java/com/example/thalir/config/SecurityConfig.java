@@ -39,13 +39,13 @@ public class SecurityConfig {
         return http
                 .csrf(c -> c.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/public/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/models/*").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+//                        .requestMatchers("/api/public/**").permitAll()
+//                        .requestMatchers("/api/auth/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/api/models/*").permitAll()
+                        .anyRequest().permitAll()
+                ).build();
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build();
     }
 
     @Bean

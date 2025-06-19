@@ -1,5 +1,6 @@
 package com.example.thalir.service;
 
+import com.example.thalir.dto.responce.CartModelDTO;
 import com.example.thalir.entity.CartItem;
 import com.example.thalir.entity.Model;
 import com.example.thalir.entity.Users;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,35 +29,57 @@ public class CartService {
         this.userRepo = userRepo;
     }
 
-    public void addToCart(String email, Long modelId) throws ResourceNotFoundException {
-
+    public String addToCart(String email, Long modelId) {
         Users user = userRepo.findByEmail(email);
         if (user == null) {
-            throw new ResourceNotFoundException("Email not found!");
+            throw new ResourceNotFoundException("User not found");
         }
 
-
         Model model = modelRepo.findById(modelId)
-                .orElseThrow(() -> new ResourceNotFoundException("Model not found!"));
-
+                .orElseThrow(() -> new ResourceNotFoundException("Model not found"));
 
         Optional<CartItem> alreadyExists = cartRepo.findByUserAndModel(user, model);
         if (alreadyExists.isPresent()) {
-
-            ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Item is already in your cart!");
-            return;
+            throw new IllegalStateException("Item is already in your cart");
         }
-
 
         CartItem cartItem = new CartItem();
         cartItem.setUser(user);
         cartItem.setModel(model);
         cartRepo.save(cartItem);
 
-
-        ResponseEntity.status(HttpStatus.CREATED)
-                .body("Item successfully added to cart!");
+        return "Item successfully added to cart";
     }
+
+
+
+    public List<CartModelDTO> getCartItems(String email) throws ResourceNotFoundException {
+        Users user = userRepo.findByEmail(email);
+        if (user == null) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        List<CartItem> cartItems = cartRepo.findByUser(user);
+        return cartItems.stream()
+                .map(item -> new CartModelDTO(item.getModel()))
+                .toList();
+    }
+
+    public String removeFromCart(String email, Long modelId) {
+        Users user = userRepo.findByEmail(email);
+        if (user == null) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        Model model = modelRepo.findById(modelId)
+                .orElseThrow(() -> new ResourceNotFoundException("Model not found"));
+
+        CartItem cartItem = cartRepo.findByUserAndModel(user, model)
+                .orElseThrow(() -> new ResourceNotFoundException("Item not found in cart"));
+
+        cartRepo.delete(cartItem);
+        return "Item removed from cart";
+    }
+
 
 }

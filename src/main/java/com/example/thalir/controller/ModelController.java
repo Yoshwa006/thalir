@@ -72,11 +72,4 @@ public class ModelController {
         }
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addToCart(@RequestHeader("Authorization") String token, @RequestBody AddToCartRequest request) {
-        String email = jwtService.extractUsername(token.replace("Bearer ", ""));
-        cartService.addToCart(email, request.getModelId());
-        return ResponseEntity.ok().body("Added");
-    }
-
 }

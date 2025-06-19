@@ -9,8 +9,10 @@ import com.example.thalir.entity.Model;
 import com.example.thalir.repository.ModelRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -58,12 +60,17 @@ public class ModelManagementService {
 
 
     public ModelResponseDTO updateModel(Long id, ModelRequestDTO dto) {
-
-
+        // Fetch the existing model from the database
         Model existingModel = repo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Model not found with id: " + id));
 
+        // Check if the new file_url already exists in the database for another record
+        boolean isFileUrlExist = repo.existsByFileUrlAndIdNot(dto.getFileUrl(), id);
+        if (isFileUrlExist) {
+            throw new DataIntegrityViolationException("File URL already exists for another model.");
+        }
 
+        // Update the model's fields
         existingModel.setName(dto.getName());
         existingModel.setDescription(dto.getDescription());
         existingModel.setPrice(dto.getPrice());
@@ -73,10 +80,12 @@ public class ModelManagementService {
         existingModel.setPublished(dto.isPublished());
         existingModel.setFree(dto.isFree());
 
-
+        // Save the updated model
         Model updatedModel = repo.save(existingModel);
 
-       return DTOMapper.toResponse(updatedModel);
+        // Return the response DTO
+        return DTOMapper.toResponse(updatedModel);
     }
+
 
 }
